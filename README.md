@@ -5,9 +5,8 @@ microframework.
 
 ## Team
 
-- Hiten Gupta
-
--
+- Hiten Gupta   
+- Fasaiel
 
 
 ##Prerequisites
