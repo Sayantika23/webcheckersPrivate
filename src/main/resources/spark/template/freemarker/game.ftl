@@ -52,6 +52,7 @@
         
           <fieldset id="game-info">
             <legend>Info</legend>
+
             
             <#if message??>
             <div id="message" class="${message.type}">${message.text}</div>
