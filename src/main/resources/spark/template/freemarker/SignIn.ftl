@@ -5,32 +5,22 @@
     <title>${title} | Web Checkers</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
-
-
-
 <body>
-<div class="page">
+<div class = "page">
 
-    <h1>Web Checkers</h1>
+    <h1>Web Checkers </h1>
 
-    <div class="navigation">
-        <a href="/">my home</a>
+    <div class = "navigation">
+        <div class = "body">
+            <p>Welcome to the world of online Checkers. </p>
+            <h3>Enter the game</h3>
+
+            <form action = "/signin" method = "post">
+                <input type ="text" placeholder="Enter your name" name ="username">
+                <button type="submit"> Start Game!</button>
+            </form>
+        </div>
+
     </div>
-
-    <form action="login" method='POST'>
-        <p><input path= "username"  type="text" name="username" /></p>
-        <input type="submit" value="Submit" />
-    </form>
-
-    <div class="body">
-        <p>Welcome to the world of online Checkers.</p>
-        <p>The game of checkers is played between two people with red and black colors</p>
-        <p></p>
-    </div>
-
-</div>
 </body>
-
-
-
 </html>
