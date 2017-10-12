@@ -122,7 +122,9 @@ public class WebServer {
     // Shows the Checkers game Home page.
     get(HOME_URL, new HomeController(), templateEngine);
 
-    get(LOGIN_URL, new LoginController(), templateEngine);
+    get(LOGIN_URL, new GetLogin(), templateEngine);
+    // For checkers login Post
+    post(LOGIN_URL, new PostLogin(),templateEngine);
 
   }
 

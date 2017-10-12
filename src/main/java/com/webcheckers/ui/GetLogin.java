@@ -8,6 +8,12 @@ import spark.TemplateViewRoute;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * GetLoginInController
+ *
+ * @author Sankarsh,Hiten,Girish,Fasaiel
+ */
+
 public class GetLogin implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request request, Response response) {
