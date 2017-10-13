@@ -3,11 +3,11 @@ package com.webcheckers.model;
 /**
  *
  *  Space class
- * @author Sankarsh,Hiten,Girish,Fasaiel
  */
 
 
 public class Space {
+
     public int cellIdx;
     public boolean isValid;
     public Piece piece;

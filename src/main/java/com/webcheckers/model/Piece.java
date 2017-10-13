@@ -4,29 +4,28 @@ package com.webcheckers.model;
 /**
  *
  *  Shows the type of piece on the borad for the CheckersGame
- * @author Sankarsh,Hiten,Girish,Fasaiel
  */
 public class Piece {
 
-    public TEnum type;
-    public CEnum color;
+    public TYPE type;
+    public COLOR color;
 
-    public enum TEnum{SINGLE, KING}
-    public  enum CEnum {RED, WHITE}
+    public enum TYPE {SINGLE, KING}
+    public  enum COLOR {RED, WHITE}
 
-    public TEnum getType() {
+    public TYPE getType() {
         return type;
     }
 
-    public void setType(TEnum type) {
+    public void setType(TYPE type) {
         this.type = type;
     }
 
-    public CEnum getColor() {
+    public COLOR getColor() {
         return color;
     }
 
-    public void setColor(CEnum color) {
+    public void setColor(COLOR color) {
         this.color = color;
     }
 }

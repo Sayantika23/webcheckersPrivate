@@ -46,7 +46,9 @@ public class WebServer {
    * The URL pattern to request the Home page.
    */
   public static final String HOME_URL = "/";
-  public static final String LOGIN_URL = "/SignIn";
+  public static final String LOGIN_URL = "/Login";
+  public static final String PLAYER_URL = "/playerlist";
+  /*public static final String FORM_GAME = "";*/
 
   //
   // Attributes
@@ -65,7 +67,7 @@ public class WebServer {
    *    The default {@link TemplateEngine} to render views.
    */
   public WebServer(
-      final TemplateEngine templateEngine) {
+          final TemplateEngine templateEngine) {
     this.templateEngine = templateEngine;
   }
 
@@ -121,12 +123,17 @@ public class WebServer {
 
     // Shows the Checkers game Home page.
     get(HOME_URL, new HomeController(), templateEngine);
-    // For checkers login Get.
-    get(LOGIN_URL, new GetLogin(), templateEngine);
-    // For checkers login Post
-    post(LOGIN_URL, new PostLogin(),templateEngine);
-    // For Starting the checkers game
-    get("/game", new GameController(), templateEngine);
+
+    //Shows the Checkers Login page.
+    get(LOGIN_URL, new GetLoginRoute(), templateEngine);
+
+    //Submitting the Login page so that it gives the online players
+    post(LOGIN_URL, new PostLoginRoute(), templateEngine);
+
+
+    get(PLAYER_URL, new PlayerListRoute(),templateEngine);
+
+    get("/requestGame", new FormBoard(), templateEngine);
 
   }
 
