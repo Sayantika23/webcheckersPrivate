@@ -3,6 +3,7 @@ package com.webcheckers.model;
 /**
  *
  *  Space class
+ * @author Sankarsh,Hiten,Girish,Fasaiel
  */
 
 

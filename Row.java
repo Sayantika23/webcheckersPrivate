@@ -6,10 +6,10 @@ import java.util.LinkedList;
 /**
  *
  *  Class to indicate the row index on the checkers board
+ * @author Sankarsh,Hiten,Girish,Fasaiel
  */
 
 public class Row implements Iterable<Space> {
-
     public LinkedList<Space> spaces = new LinkedList<>();
     public int index;
 

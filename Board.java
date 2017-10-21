@@ -5,13 +5,15 @@ import java.util.*;
 /**
  * Board Class.
  *
+ * @authors Sankarsh,Hiten,Girish,Fasaiel
  */
 
 public class Board implements Iterable<Row>{
 
-    public List<Row> rows = new LinkedList<Row>(); //List of rows typecasted as linkedlist so that it stores value for all the lists available
+    public List<Row> rows = new LinkedList<Row>();
 
     @Override
+
     public Iterator<Row> iterator()
     {
         return rows.iterator();
@@ -20,18 +22,16 @@ public class Board implements Iterable<Row>{
 
 
     //Method to create the board
+
     public static Board createBoard(Board board) {
 
-        //Iteration of rows
         int x = 0;
         while(x <= 7){
             board.rows.add(new Row(x));
             x++;
         }
 
-        //Iteration of rows for the placement of pieces
         for (int m = 0; m <=7; m++) {
-            //nested loop to find free spaces in the rows
             for (int n = 0; n <=7; n++) {
                 board.rows.get(m).spaces.add(new Space(n, true, null));
             }

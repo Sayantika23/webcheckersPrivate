@@ -4,6 +4,7 @@ package com.webcheckers.model;
 /**
  *
  *  Shows the type of piece on the borad for the CheckersGame
+ * @author Sankarsh,Hiten,Girish,Fasaiel
  */
 public class Piece {
 

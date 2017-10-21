@@ -67,7 +67,7 @@ public class WebServer {
    *    The default {@link TemplateEngine} to render views.
    */
   public WebServer(
-          final TemplateEngine templateEngine) {
+      final TemplateEngine templateEngine) {
     this.templateEngine = templateEngine;
   }
 

@@ -81,19 +81,19 @@
           <fieldset id="game-toolbar">
             <legend>Controls</legend>
             <div class="toolbar">
-              <a href="#" id="backupLink" disabled=disabled
+              <a href="#" id="backupLink" enabled=enabled
                  title="Remove the last move with your current turn.">
                 Backup one move
               </a>
-              <a href="#" id="resetLink" disabled=disabled
+              <a href="#" id="resetLink" enabled=enabled
                  title="Remove all moves within your current turn.">
                 Reset turn
               </a>
-              <a href="#" id="submitLink" disabled=disabled
+              <a href="#" id="submitLink" enabled=enabled
                  title="Commit your current turn to the server.">
                 Submit turn
               </a>
-              <a href="#" id="resignLink" disabled=disabled
+              <a href="#" id="resignLink" enabled=enabled
                  title="End the game by resigning.">
                 Resign from game
               </a>

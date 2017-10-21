@@ -8,19 +8,11 @@ import spark.TemplateViewRoute;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * GetLoginInController
- *
- * @author Sankarsh,Hiten,Girish,Fasaiel
- */
-
-public class GetLogin implements TemplateViewRoute {
+public class GetLoginRoute implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request request, Response response) {
         Map<String, Object> vm = new HashMap<>();
-        String username = request.session().attribute("username");
-        vm.put("title", "Sign In!");
-        return new ModelAndView(vm, "signIn.ftl");
-
+        vm.put("title", "Welcome!");
+        return new ModelAndView(vm,"SignIn.ftl");
     }
 }
