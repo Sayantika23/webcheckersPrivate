@@ -8,18 +8,13 @@ import static org.junit.Assert.*;
 public class RowTest {
     @Before
     public void setUp() throws Exception {
+
     }
 
+    //checking the index is set or not
     @Test
-    public void iterator() throws Exception {
+    public void checkSameIndex(){
+        Row row = new Row(1);
+        assertEquals(1, row.getIndex());
     }
-
-    @Test
-    public void getIndex() throws Exception {
-    }
-
-    @Test
-    public void setIndex() throws Exception {
-    }
-
 }
