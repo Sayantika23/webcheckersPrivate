@@ -20,9 +20,11 @@
         <p>Choose Your Opponent:</p>
         <ul>
             <#list playerList as player>
+                <#if player == username>
                 <a href="/requestGame?opponentName=${player}&username=${username}">
                     <li>${player}</li>
                 </a>
+                </#if>
             </#list>
         </ul>
     </div>
