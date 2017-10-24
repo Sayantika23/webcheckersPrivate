@@ -15,7 +15,7 @@
             <p>Welcome to the world of online Checkers. </p>
             <h3>Enter the game</h3>
 
-            <form action = "/signin" method = "post">
+            <form action = "/Login" method = "post">
                 <input type ="text" placeholder="Enter your name" name ="username">
                 <button type="submit"> Start Game!</button>
             </form>
