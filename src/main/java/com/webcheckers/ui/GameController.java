@@ -8,10 +8,7 @@ import spark.TemplateViewRoute;
 public class GameController implements TemplateViewRoute {
 
 
-
-
-    @Override
-    public eturn null;
+    public ModelAndView handle(Request request, Response response) {
+        return null;
     }
-}ModelAndView handle(Request request, Response response) {
-    r
+}
