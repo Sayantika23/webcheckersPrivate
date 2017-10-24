@@ -11,7 +11,7 @@ public class GameController implements TemplateViewRoute {
 
 
     @Override
-    public ModelAndView handle(Request request, Response response) {
-        return null;
+    public eturn null;
     }
-}
+}ModelAndView handle(Request request, Response response) {
+    r

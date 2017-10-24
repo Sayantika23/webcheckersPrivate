@@ -1,6 +1,6 @@
 package com.webcheckers.ui;
 
-import com.sun.tools.internal.xjc.model.Model;
+
 import javafx.geometry.Pos;
 import org.junit.After;
 import org.junit.Before;

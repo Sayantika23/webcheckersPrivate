@@ -7,13 +7,17 @@ import java.util.List;
 public class PlayersAvailable implements Serializable {
 
     //Name of the player
-    public String username;
+    public String username="";
 
     //Name of the opponent
     public String opponentName;
 
     //list of all Users
     public static List<String> playersAvailable = new ArrayList();
+
+    public PlayersAvailable() {
+
+    }
 
 
     public String getUsername() {
