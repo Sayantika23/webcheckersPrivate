@@ -1,8 +1,13 @@
 package com.webcheckers.model;
 
+import org.hibernate.validator.constraints.SafeHtml;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 
+import static java.lang.Boolean.TRUE;
+import static org.eclipse.jetty.webapp.MetaDataComplete.True;
 import static org.junit.Assert.*;
 
 public class SpaceTest {
@@ -10,9 +15,13 @@ public class SpaceTest {
     private int cellIdx;
     private boolean isValid;
     private Piece piece;
+    private int Index;
+    private Space space;
 
-    @Before
-    public void setCellIdx() throws Exception {
+   @Before
+   public void setUp() throws Exception{
+
+       space = new Space(1,TRUE);
     }
 
 
@@ -20,23 +29,12 @@ public class SpaceTest {
 
     @Test
     public void checkCellIdx(){
-        Space space = new Space();
-        assertEquals(1, space.getCellIdx()Index());
-    }
-    @Test
-    public void isValid() throws Exception {
+
+
+
+        Space space = new Space(1,true);
+        assertEquals(1, space.getCellIdx());
     }
 
-    @Test
-    public void setValid() throws Exception {
-    }
-
-    @Test
-    public void getPiece() throws Exception {
-    }
-
-    @Test
-    public void setPiece() throws Exception {
-    }
 
 }

@@ -29,8 +29,6 @@ public class HomeControllerTest {
     @Before
     public void setUp() throws Exception {
 
-        request = Mockito.mock(Request.class);
-        response = Mockito.mock(Response.class);
         modelAndView = Mockito.mock(ModelAndView.class);
         vm = Mockito.mock(HashMap.class);
     }

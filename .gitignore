@@ -18,3 +18,4 @@
 ############
 .idea/
 *.iml
+src/main/resources/spark/template/freemarker/SignIn.ftl

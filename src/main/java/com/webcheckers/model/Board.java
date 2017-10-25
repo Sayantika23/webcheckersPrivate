@@ -33,7 +33,7 @@ public class Board implements Iterable<Row>{
         for (int m = 0; m <=7; m++) {
             //nested loop to find free spaces in the rows
             for (int n = 0; n <=7; n++) {
-                board.rows.get(m).spaces.add(new Space(n, true, null));
+                board.rows.get(m).spaces.add(new Space(n, true));
             }
         }
         //loop to read rows incremently

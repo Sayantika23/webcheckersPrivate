@@ -11,7 +11,7 @@ public class Space {
     public int cellIdx;
     public boolean isValid;
     public Piece piece;
-    public Space(int cellIdx,boolean isValid,Piece piece) { this.cellIdx=cellIdx;this.isValid=isValid;this.piece=piece; }
+    public Space(int cellIdx,boolean isValid) { this.cellIdx=cellIdx;this.isValid=isValid; }
 
     public int getCellIdx() {
         return cellIdx;
