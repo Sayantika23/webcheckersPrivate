@@ -1,5 +1,7 @@
 package com.webcheckers.ui;
 
+import spark.Session;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +17,8 @@ public class PlayersAvailable implements Serializable {
     //list of all Users
     public static List<String> playersAvailable = new ArrayList();
 
-    public PlayersAvailable() {
+    public PlayersAvailable(String username, Session session) {
+        this.username = username;
 
     }
 
@@ -44,5 +47,6 @@ public class PlayersAvailable implements Serializable {
     public boolean addPlayer(String username){
         playersAvailable.add(username);
         return true;
+
     }
 }

@@ -5,10 +5,11 @@ import spark.Request;
 import spark.Response;
 import spark.TemplateViewRoute;
 
-public class GameController implements TemplateViewRoute {
+public class GetGameController implements TemplateViewRoute {
 
 
     public ModelAndView handle(Request request, Response response) {
+
         return null;
     }
 }

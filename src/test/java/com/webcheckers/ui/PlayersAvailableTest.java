@@ -1,22 +1,23 @@
 package com.webcheckers.ui;
 
 import org.junit.Test;
+import spark.Session;
 
 import static org.junit.Assert.*;
 
 public class PlayersAvailableTest {
 
-
+private Session session;
 
     @Test
     public void getUsername() throws Exception {
-      final PlayersAvailable pl_test= new PlayersAvailable();
+      final PlayersAvailable pl_test= new PlayersAvailable("hiten",session);
         assertEquals("",pl_test.getUsername());
     }
 
     @Test
     public void setUsername() throws Exception {
-        final PlayersAvailable pl_test= new PlayersAvailable();
+        final PlayersAvailable pl_test= new PlayersAvailable("fasaiel", session);
         assertEquals("",pl_test.getUsername());
         pl_test.setUsername("Fasaiel");
         assertEquals("Fasaiel",pl_test.getUsername());
@@ -37,7 +38,7 @@ public class PlayersAvailableTest {
 
     @Test
     public void setOpponentName() throws Exception {
-        final PlayersAvailable pl_test= new PlayersAvailable();
+        final PlayersAvailable pl_test= new PlayersAvailable("fasaiel", session);
         //assertEquals("",pl_test.getOpponentName());
         pl_test.setOpponentName("ser");
         assertEquals("ser",pl_test.getOpponentName());
