@@ -1,32 +1,41 @@
 package com.webcheckers.model;
 
-/**
- *
- *  Space class
- */
-
-
 public class Space {
 
-    public int cellIdx;
-    public boolean isValid;
-    public Piece piece;
-    public Space(int cellIdx,boolean isValid) { this.cellIdx=cellIdx;this.isValid=isValid; }
+    private String color;
+    private Piece piece;
+    private int cellIdx;
+
+    public Space(String _color, Piece _piece, int _cellIdx) {
+        this.color = _color;
+        this.piece = _piece;
+        this.cellIdx = _cellIdx;
+    }
+
+
+    public String getColor() {
+        return this.color;
+    }
+
+
+    public Piece getPiece() {
+        return this.piece;
+    }
+
 
     public int getCellIdx() {
-        return cellIdx;
+        return this.cellIdx;
     }
-    public void setCellIdx(int cellIdx) {
-        this.cellIdx = cellIdx;
+
+
+    public void setColor(String _color) {
+        this.color = _color;
     }
-    public boolean isValid() {
-        return isValid;
+
+
+    public void setPiece(Piece _piece) {
+        this.piece = _piece;
     }
-    public void setValid(boolean valid) { isValid = valid; }
-    public Piece getPiece() {
-        return piece;
-    }
-    public void setPiece(Piece piece) {
-        this.piece = piece;
-    }
+
+
 }

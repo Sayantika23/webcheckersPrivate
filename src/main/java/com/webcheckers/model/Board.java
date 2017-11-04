@@ -1,69 +1,57 @@
 package com.webcheckers.model;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
-
-/**
- * Board Class.
- *
- */
 
 public class Board implements Iterable<Row>{
 
-    public List<Row> rows = new LinkedList<Row>(); //List of rows typecasted as linkedlist so that it stores value for all the lists available
+    public List<Row> getRows() {
+        return rows;
+    }
+
+    public void setRows(List<Row> rows) {
+        this.rows = rows;
+    }
+
+    private List<Row> rows;
+
+
+
+    private boolean Move = false;
+    public boolean isMove() {
+        return Move;
+    }
+
+    public Board() {
+        rows = new ArrayList<>();
+        for(int i=0; i<=7; i++) {
+            rows.add(new Row(i));
+        }
+    }
+
+    public void setMove(boolean move) {
+        this.Move = move;
+    }
+
+    public void movePiece(Move move) {
+        int startRow = move.getStart().getRow();
+        int startCell = move.getStart().getCell();
+        int endRow = move.getEnd().getRow();
+        int endCell = move.getEnd().getCell();
+
+        Space startSpace = rows.get(startRow).getSpaces().get(startCell);
+        Space endSpace = rows.get(endRow).getSpaces().get(endCell);
+        Piece piece = startSpace.getPiece();
+
+        startSpace.setPiece(null);
+        endSpace.setPiece(piece);
+        Move = true;
+    }
 
     @Override
-    public Iterator<Row> iterator()
-    {
+    public Iterator<Row> iterator() {
         return rows.iterator();
     }
 
-
-
-    //Method to create the board
-    public static Board createBoard(Board board) {
-
-        //Iteration of rows
-        int x = 0;
-        while(x <= 7){
-            board.rows.add(new Row(x));
-            x++;
-        }
-
-        //Iteration of rows for the placement of pieces
-        for (int m = 0; m <=7; m++) {
-            //nested loop to find free spaces in the rows
-            for (int n = 0; n <=7; n++) {
-                board.rows.get(m).spaces.add(new Space(n, true));
-            }
-        }
-        //loop to read rows incremently
-        for (int m = 0; m <=7; m++) {
-            //loop to check for spaces
-            for (int n = 0; n <=7; n++) {
-                if ( ((m == 0) || (m == 2)) && (n % 2 == 0)){
-                    board.rows.get(m).spaces.get(n).piece = new Piece();
-                    board.rows.get(m).spaces.get(n).piece.type = Piece.TYPE.SINGLE;
-                    board.rows.get(m).spaces.get(n).piece.color = Piece.COLOR.WHITE;
-                }
-                if ( (m == 1) &&(n % 2 != 0) ){
-                    board.rows.get(m).spaces.get(n).piece = new Piece();
-                    board.rows.get(m).spaces.get(n).piece.type = Piece.TYPE.SINGLE;
-                    board.rows.get(m).spaces.get(n).piece.color = Piece.COLOR.WHITE;
-                }
-
-                if ( ((m == 5) || (m == 7)) && (n % 2 != 0)){
-                    board.rows.get(m).spaces.get(n).piece = new Piece();
-                    board.rows.get(m).spaces.get(n).piece.type = Piece.TYPE.SINGLE;
-                    board.rows.get(m).spaces.get(n).piece.color = Piece.COLOR.RED;
-
-                }
-                if ( (m == 6) && (n % 2 == 0) ){
-                    board.rows.get(m).spaces.get(n).piece = new Piece();
-                    board.rows.get(m).spaces.get(n).piece.type = Piece.TYPE.SINGLE;
-                    board.rows.get(m).spaces.get(n).piece.color = Piece.COLOR.RED;
-                }
-            }
-        }
-        return board;
-    }
 }
