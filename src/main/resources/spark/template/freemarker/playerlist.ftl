@@ -15,20 +15,23 @@
     </div>
 
 
-<#if playerList??>
-    <div class="body">
-        <p>Choose Your Opponent:</p>
+<#if username??>
+    <#if usernames??>
+        <p>Choose your Opponent</p>
         <ul>
-            <#list playerList as player>
-                <#if player == username>
-                <a href="/requestGame?opponentName=${player}&username=${username}">
-                    <li>${player}</li>
-                </a>
+            <#list usernames as playerInGame>
+                <#if playerInGame != username>
+                    <li>
+                        <a href="/requestGame?contendor=${playerInGame}">
+                        ${playerInGame}
+                        </a>
+                    </li>
                 </#if>
             </#list>
         </ul>
-    </div>
+    </#if>
 </#if>
+</div>
 
 </div>
 </body>

@@ -37,5 +37,15 @@ public class Space {
         this.piece = _piece;
     }
 
+    public void setCellIdx(int _cellIdx) {
+        this.cellIdx = _cellIdx;
+    }
+
+
+    public boolean isValid() {
+        return this.piece == null && this.color.equals("black");
+    }
+    
+
 
 }
