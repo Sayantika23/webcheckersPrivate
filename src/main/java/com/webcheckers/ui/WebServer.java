@@ -1,6 +1,8 @@
 package com.webcheckers.ui;
 
 import static spark.Spark.*;
+
+import com.webcheckers.appl.CheckerCentre;
 import spark.TemplateEngine;
 
 
@@ -48,7 +50,9 @@ public class WebServer {
   public static final String HOME_URL = "/";
   public static final String LOGIN_URL = "/Login";
   public static final String PLAYER_URL = "/playerlist";
-  /*public static final String FORM_GAME = "";*/
+  public static final String STARTGAME_URL = "/requestGame";
+  public static final String GAME_URL = "/game";
+  private final CheckerCentre checkerCentre;
 
   //
   // Attributes
@@ -66,9 +70,10 @@ public class WebServer {
    * @param templateEngine
    *    The default {@link TemplateEngine} to render views.
    */
-  public WebServer(
-          final TemplateEngine templateEngine) {
+  public WebServer(final CheckerCentre checkerCentre,
+                   final TemplateEngine templateEngine) {
     this.templateEngine = templateEngine;
+    this.checkerCentre = checkerCentre;
   }
 
   //
@@ -122,19 +127,24 @@ public class WebServer {
     //// code clean; using small classes.
 
     // Shows the Checkers game Home page.
-    get(HOME_URL, new HomeController(), templateEngine);
+    get(HOME_URL, new HomeController(checkerCentre), templateEngine);
 
     //Shows the Checkers Login page.
     get(LOGIN_URL, new GetLoginRoute(), templateEngine);
 
     //Submitting the Login page so that it gives the online players
-    post(LOGIN_URL, new PostLoginRoute(), templateEngine);
+    post(LOGIN_URL, new PostLoginRoute(checkerCentre), templateEngine);
 
 
-    get(PLAYER_URL, new PlayerListRoute(),templateEngine);
+    get(PLAYER_URL, new PlayerListRoute(checkerCentre),templateEngine);
 
-    get("/requestGame", new FormBoard(), templateEngine);
+    get(STARTGAME_URL, new GetStartGameRoute(checkerCentre), templateEngine);
 
+    get(GAME_URL, new GameController(checkerCentre), templateEngine);
+
+    post("validateMove", new PostValidateMove(checkerCentre), JsonUtils.json());
+
+    post("submitTurn", new PostSubmitTurn(checkerCentre), JsonUtils.json());
   }
 
 }
