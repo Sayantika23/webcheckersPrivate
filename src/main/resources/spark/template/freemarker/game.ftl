@@ -89,7 +89,7 @@
                  title="Remove all moves within your current turn.">
                 Reset turn
               </a>
-              <a href="submitlink" id="submitLink" enabled=enabled
+              <a href="#" id="submitLink" enabled=enabled
                  title="Commit your current turn to the server.">
                 Submit turn
               </a>
