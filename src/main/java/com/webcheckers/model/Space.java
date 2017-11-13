@@ -45,6 +45,10 @@ public class Space {
     public boolean isValid() {
         return this.piece == null && this.color.equals("black");
     }
+
+    public void removeCapturedPiece() {
+        piece = null;
+    }
     
 
 

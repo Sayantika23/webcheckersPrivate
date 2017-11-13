@@ -40,5 +40,18 @@ public class CheckerCentre {
         return available;
     }
 
+    public ManageGame getGame(String _username) {
+        for(ManageGame game : games) { //Loop through each game & return true if the username matches the game's Player1 or Player2 attribute
+            if(game.getFirstPlayer().getUsername().equals(_username) || game.getSecondPlayer().getUsername().equals(_username)) {
+                return game;
+            }
+        }
+
+        return null;
+    }
+
+    public void removePlayer(String _username) {
+        players.remove(_username);
+    }
 
 }

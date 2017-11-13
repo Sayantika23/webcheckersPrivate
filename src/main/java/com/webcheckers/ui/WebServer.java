@@ -145,6 +145,14 @@ public class WebServer {
     post("validateMove", new PostValidateMove(checkerCentre), JsonUtils.json());
 
     post("submitTurn", new PostSubmitTurn(checkerCentre), JsonUtils.json());
+
+
+    post("backupMove", new PostBackupMoveRoute(checkerCentre), JsonUtils.json());
+
+
+    post("checkTurn", new PostCheckTurnRoute(checkerCentre), JsonUtils.json());
+
+    get("/logout", new GetLogoutRoute(checkerCentre), templateEngine);
   }
 
 }

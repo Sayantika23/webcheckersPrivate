@@ -19,4 +19,25 @@ public class Move {
         return end;
     }
 
+    public int getRowsMoved() {
+        return Math.abs(start.getRow() - end.getRow());
+    }
+
+
+    public boolean isMoveUp() {
+        return end.getRow() > start.getRow();
+    }
+
+
+    public Position getJumpedCoordinate() {
+        int rowVal = (start.getRow() + end.getRow())/2;
+        int cellVal = (start.getCell() + end.getCell())/2;
+
+        return new Position(rowVal, cellVal);
+    }
+
+    public String toString() {
+        return "Move: (Initial - R: " + start.getRow() + ", C: " + start.getCell() + ", Ending - R: " + end.getRow() + ", C: " + end.getCell() + ")";
+    }
+
 }

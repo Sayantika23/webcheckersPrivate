@@ -21,6 +21,7 @@ public class PostSubmitTurn implements Route {
     public Object handle(Request request, Response response) {
         System.out.println(request.body());
         ManageGame game = checkerCentre.getCurrentGame(request.session().attribute(PostLoginRoute.USERNAME_PARAM));
+        game.changeTurn();
         response.redirect("/game");
         halt();
         return null;
