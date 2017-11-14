@@ -16,7 +16,7 @@ public class Board implements Iterable<Row>{
 
     private List<Row> rows;
 
-    public boolean isDidMove() {
+    public boolean isDidMove(com.webcheckers.model.Move testMove) {
         return didMove;
     }
 

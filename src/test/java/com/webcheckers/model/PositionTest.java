@@ -4,26 +4,56 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class PositionTest {
-    private Position START = new Position(1, 1);
-    private Position END = new Position(2, 2);
-    private Position START2 = new Position(3, 3);
-    private Position END2 = new Position(4, 4);
+public class PositionTest
+{
+
+    private int Row=1;
+    private int Col=1;
+    private int Row2=2;
+    private int Col2=2;
+
+    @Test
+
+   public void positionTest()
+    {
+        Position posit= new Position(Row,Col);
+        assertNotNull(posit);
+
+    }
 
 
     @Test
-    public void moveTest() {
-        Move move = new Move(START, END);
-        assertNotNull(move);
+    public void rowTest()
+    {
+        Position posit = new Position(Row, Col);
+        assertEquals(Row,posit.getRow());
     }
 
     @Test
-    public void equalsTest() {
-        Move move1 = new Move(START, END);
-        Move move2 = new Move(START, END);
-        move2 = new Move(START2, END2);
-        assertFalse(move1.equals(move2));
+    public void colTest()
+    {
+        Position posit = new Position(Row, Col);
+        assertEquals(Col, posit.getCell());
+    }
+
+    @Test
+    public void equalsTest()
+    {
+        Position pos = new Position(Row, Col);
+        Position pos2 = new Position(Row, Col);
+        assertTrue(pos.equals(pos2));
+        pos2 = new Position(Row2, Col2);
+        assertFalse(pos.equals(pos2));
+    }
+
+    @Test
+    public void hashCodeTest()
+    {
+        Position pos1 = new Position(Row, Col);
+        Position pos2 = new Position(Row,Col);
+        if(pos1.equals(pos2)){
+            assertTrue(pos1.hashCode() == pos2.hashCode());
+        }
     }
 
 }
-

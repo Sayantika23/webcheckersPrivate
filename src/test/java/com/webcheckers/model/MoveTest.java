@@ -17,8 +17,23 @@ import static org.junit.Assert.*;
             assertNotNull(move);
         }
 
+
         @Test
-        public void equalsTest() {
+        public void startTest()
+        {
+            Move move = new Move(START, END);
+            assertEquals(START, move.getStart());
+        }
+
+        @Test
+        public void endTest() {
+            Move move = new Move(START, END);
+            assertEquals(END, move.getEnd());
+        }
+
+        @Test
+
+            public void equalsTest() {
             Move move1 = new Move(START, END);
             Move move2 = new Move(START, END);
             move2 = new Move(START2, END2);
