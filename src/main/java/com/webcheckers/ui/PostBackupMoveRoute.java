@@ -12,19 +12,19 @@ import java.util.Objects;
 public class PostBackupMoveRoute implements Route {
 
     //Attributes
-    private final CheckerCentre gameCenter;
+    private final CheckerCentre checkercenter;
 
-    PostBackupMoveRoute(final CheckerCentre gameCenter) {
+    PostBackupMoveRoute(final CheckerCentre checkercenter) {
         // validation
-        Objects.requireNonNull(gameCenter, "gameCenter must not be null");
+        Objects.requireNonNull(checkercenter, "checkercenter must not be null");
 
-        this.gameCenter = gameCenter;
+        this.checkercenter = checkercenter;
     }
 
     @Override
     public Object handle(Request request, Response response) {
         final String currentUsername = request.session().attribute(PostLoginRoute.USERNAME_PARAM);
-        ManageGame game = gameCenter.getGame(currentUsername);
+        ManageGame game = checkercenter.getGame(currentUsername);
 
         game.backupMove();
 

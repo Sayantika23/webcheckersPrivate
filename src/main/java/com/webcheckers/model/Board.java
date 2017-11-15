@@ -56,8 +56,8 @@ public class Board implements Iterable<Row>{
 
     public void movePiece(Move _move) {
 
-        Space startSpace = getSpaceByCoordinate(_move.getStart());
-        Space endSpace = getSpaceByCoordinate(_move.getEnd());
+        Space startSpace = fetchSpace(_move.getStart());
+        Space endSpace = fetchSpace(_move.getEnd());
         Piece piece = startSpace.getPiece();
         startSpace.setPiece(null);
         endSpace.setPiece(piece);
@@ -65,8 +65,8 @@ public class Board implements Iterable<Row>{
 
         if(_move.getRowsMoved() == 2) {
             didJump = true;
-            Position jumpedCoordinate = _move.getJumpedCoordinate();
-            Space jumpedSpace = getSpaceByCoordinate(jumpedCoordinate);
+            Position jumpedPosition = _move.getPosition();
+            Space jumpedSpace = fetchSpace(jumpedPosition);
             jumpedSpace.removeCapturedPiece();
         }
     }
@@ -76,45 +76,45 @@ public class Board implements Iterable<Row>{
         return rows.iterator();
     }
 
-    public Message validateMove(Move _move) {
+    public Message validateMove(Move move) {
 
-        Space startSpace = getSpaceByCoordinate(_move.getStart());
-        Space endSpace = getSpaceByCoordinate(_move.getEnd());
+        Space startSpace = fetchSpace(move.getStart());
+        Space endSpace = fetchSpace(move.getEnd());
         Piece piece = startSpace.getPiece();
 
 
-        if(_move.getRowsMoved() == 1 && piece.getColor().equals("RED") && checkForAvailableRedJumps()) {
-            return new Message("You have a jump that you must take", "error");
-        } else if(_move.getRowsMoved() == 1 && piece.getColor().equals("WHITE") && checkForAvailableWhiteJumps()) {
-            return new Message("You have a jump that you must take", "error");
+        if(move.getRowsMoved() == 1 && piece.getColor().equals("RED") && redJumps()) {
+            return new Message("A jump needs to be taken", "error");
+        } else if(move.getRowsMoved() == 1 && piece.getColor().equals("WHITE") && WhiteJumps()) {
+            return new Message("A jump needs to be taken", "error");
         }
 
         if(!didMove || (didMove && didJump)) {
             if(endSpace.getPiece() == null) {
                 if (piece.getColor().equals("RED")) {
-                    if (_move.getRowsMoved() == 1 && !_move.isMoveUp() && !didJump) {
+                    if (move.getRowsMoved() == 1 && !move.isMoveUp() && !didJump) {
                         return new Message("Move Allowed", "info");
-                    } else if(_move.getRowsMoved() == 2 && !_move.isMoveUp()) {
-                        return validateJump(_move, piece);
+                    } else if(move.getRowsMoved() == 2 && !move.isMoveUp()) {
+                        return validateJump(move, piece);
                     } else {
-                        String messageText = didJump ? "You cannot make a regular move after jumping!" : "You must move 1 row forward";
+                        String messageText = didJump ? "Not Allowed" : "move 1 row forward";
                         return new Message(messageText, "error");
                     }
                 } else if (piece.getColor().equals("WHITE")) {
-                    if (_move.getRowsMoved() == 1 && _move.isMoveUp() && !didJump) {
+                    if (move.getRowsMoved() == 1 && move.isMoveUp() && !didJump) {
                         return new Message("Move Allowed", "info");
-                    } else if(_move.getRowsMoved() == 2 && _move.isMoveUp()) {
-                        return validateJump(_move, piece);
+                    } else if(move.getRowsMoved() == 2 && move.isMoveUp()) {
+                        return validateJump(move, piece);
                     } else {
-                        String messageText = didJump ? "You cannot make a regular move after jumping!" : "You must move 1 row forward";
+                        String messageText = didJump ? "Not Allowed" : "move 1 row forward";
                         return new Message(messageText, "error");
                     }
                 }
             } else {
-                return new Message("A Piece is already in that Square", "error");
+                return new Message("Not Allowed", "error");
             }
         } else {
-            return new Message("You have already made a move this turn", "error");
+            return new Message("Not Allowed", "error");
         }
 
 
@@ -122,14 +122,14 @@ public class Board implements Iterable<Row>{
     }
 
 
-    public Message validateJump(Move _move, Piece _jumpingPiece) {
+    public Message validateJump(Move move, Piece piece) {
 
-        Position jumpedCoordinate = _move.getJumpedCoordinate();
-        Space jumpedSpace = getSpaceByCoordinate(jumpedCoordinate);
+        Position jumpedPosition = move.getPosition();
+        Space jumpedSpace = fetchSpace(jumpedPosition);
         Piece jumpedPiece = jumpedSpace.getPiece();
 
         if(jumpedPiece != null) {
-            if(!jumpedPiece.getColor().equals(_jumpingPiece.getColor())) {
+            if(!jumpedPiece.getColor().equals(piece.getColor())) {
                 return new Message("Move allowed", "info");
             } else {
                 return new Message("You cannot jump your own piece", "error");
@@ -139,33 +139,27 @@ public class Board implements Iterable<Row>{
         }
     }
 
-
-    public void undoMove(Move _move) {
-        Space startSpace = getSpaceByCoordinate(_move.getStart());
-        Space endSpace = getSpaceByCoordinate(_move.getEnd());
+    public void undoMove(Move move) {
+        Space startSpace = fetchSpace(move.getStart());
+        Space endSpace = fetchSpace(move.getEnd());
         Piece piece = endSpace.getPiece();
-
-        //Set the piece back in the starting square and empty the ending square.  Indicate that the user now hasn't completed a move this turn
         startSpace.setPiece(piece);
         endSpace.setPiece(null);
         didMove = false;
     }
+    public void undoCapture(Space space, Piece capturedPiece, int count) {
+        space.setPiece(capturedPiece);
 
-    public void undoCapture(Space _jumpedSpace, Piece _capturedPiece, int _stillCapturedCount) {
-        _jumpedSpace.setPiece(_capturedPiece);
-
-        if(_stillCapturedCount == 0) {
+        if(count == 0) {
             didJump = false;
         }
     }
 
-
-    public Space getSpaceByCoordinate(Position _coord) {
-        return rows.get(_coord.getRow()).getSpaces().get(_coord.getCell());
+    public Space fetchSpace(Position position) {
+        return rows.get(position.getRow()).getSpaces().get(position.getCell());
     }
 
-
-    public boolean checkForAvailableRedJumps() {
+    public boolean redJumps() {
         for(Row row: rows) {
             for(Space space : row) {
                 Piece piece = space.getPiece();
@@ -174,8 +168,8 @@ public class Board implements Iterable<Row>{
                 if(piece != null && piece.getColor().equals("RED")) {
                     if (row.getIndex() > 1) {
                         if (space.getCellIdx() <= 1) {
-                            Space squareToJump = getSpaceByCoordinate(new Position(row.getIndex() - 1, space.getCellIdx() + 1));
-                            Space landingSquare = getSpaceByCoordinate(new Position(row.getIndex() - 2, space.getCellIdx() + 2));
+                            Space squareToJump = fetchSpace(new Position(row.getIndex() - 1, space.getCellIdx() + 1));
+                            Space landingSquare = fetchSpace(new Position(row.getIndex() - 2, space.getCellIdx() + 2));
 
                             Piece jumpedPiece = squareToJump.getPiece();
                             Piece landingSquarePiece = landingSquare.getPiece();
@@ -185,8 +179,8 @@ public class Board implements Iterable<Row>{
                                 return true;
                             }
                         } else if (space.getCellIdx() >= 6) {
-                            Space squareToJump = getSpaceByCoordinate(new Position(row.getIndex() - 1, space.getCellIdx() - 1));
-                            Space landingSquare = getSpaceByCoordinate(new Position(row.getIndex() - 2, space.getCellIdx() - 2));
+                            Space squareToJump = fetchSpace(new Position(row.getIndex() - 1, space.getCellIdx() - 1));
+                            Space landingSquare = fetchSpace(new Position(row.getIndex() - 2, space.getCellIdx() - 2));
 
                             Piece jumpedPiece = squareToJump.getPiece();
                             Piece landingSquarePiece = landingSquare.getPiece();
@@ -195,13 +189,13 @@ public class Board implements Iterable<Row>{
                                 return true;
                             }
                         } else {
-                            Space squareToJumpLeft = getSpaceByCoordinate(new Position(row.getIndex() - 1, space.getCellIdx() - 1));
-                            Space landingSquareLeft = getSpaceByCoordinate(new Position(row.getIndex() - 2, space.getCellIdx() - 2));
+                            Space squareToJumpLeft = fetchSpace(new Position(row.getIndex() - 1, space.getCellIdx() - 1));
+                            Space landingSquareLeft = fetchSpace(new Position(row.getIndex() - 2, space.getCellIdx() - 2));
                             Piece jumpedPieceLeft = squareToJumpLeft.getPiece();
                             Piece landingSquarePieceLeft = landingSquareLeft.getPiece();
 
-                            Space squareToJumpRight = getSpaceByCoordinate(new Position(row.getIndex() - 1, space.getCellIdx() + 1));
-                            Space landingSquareRight = getSpaceByCoordinate(new Position(row.getIndex() - 2, space.getCellIdx() + 2));
+                            Space squareToJumpRight = fetchSpace(new Position(row.getIndex() - 1, space.getCellIdx() + 1));
+                            Space landingSquareRight = fetchSpace(new Position(row.getIndex() - 2, space.getCellIdx() + 2));
                             Piece jumpedPieceRight = squareToJumpRight.getPiece();
                             Piece landingSquarePieceRight = landingSquareRight.getPiece();
 
@@ -220,7 +214,7 @@ public class Board implements Iterable<Row>{
     }
 
 
-    public boolean checkForAvailableWhiteJumps() {
+    public boolean WhiteJumps() {
         for(Row row: rows) {
             for(Space space : row) {
                 Piece piece = space.getPiece();
@@ -228,8 +222,8 @@ public class Board implements Iterable<Row>{
                 if(piece != null && piece.getColor().equals("WHITE")) {
                     if (row.getIndex() < 6) {
                         if (space.getCellIdx() <= 1) {
-                            Space squareToJump = getSpaceByCoordinate(new Position(row.getIndex() + 1, space.getCellIdx() + 1));
-                            Space landingSquare = getSpaceByCoordinate(new Position(row.getIndex() + 2, space.getCellIdx() + 2));
+                            Space squareToJump = fetchSpace(new Position(row.getIndex() + 1, space.getCellIdx() + 1));
+                            Space landingSquare = fetchSpace(new Position(row.getIndex() + 2, space.getCellIdx() + 2));
 
                             Piece jumpedPiece = squareToJump.getPiece();
                             Piece landingSquarePiece = landingSquare.getPiece();
@@ -238,8 +232,8 @@ public class Board implements Iterable<Row>{
                                 return true;
                             }
                         } else if (space.getCellIdx() >= 6) {
-                            Space squareToJump = getSpaceByCoordinate(new Position(row.getIndex() + 1, space.getCellIdx() - 1));
-                            Space landingSquare = getSpaceByCoordinate(new Position(row.getIndex() + 2, space.getCellIdx() - 2));
+                            Space squareToJump = fetchSpace(new Position(row.getIndex() + 1, space.getCellIdx() - 1));
+                            Space landingSquare = fetchSpace(new Position(row.getIndex() + 2, space.getCellIdx() - 2));
 
                             Piece jumpedPiece = squareToJump.getPiece();
                             Piece landingSquarePiece = landingSquare.getPiece();
@@ -248,13 +242,13 @@ public class Board implements Iterable<Row>{
                                 return true;
                             }
                         } else {
-                            Space squareToJumpLeft = getSpaceByCoordinate(new Position(row.getIndex() + 1, space.getCellIdx() + 1));
-                            Space landingSquareLeft = getSpaceByCoordinate(new Position(row.getIndex() + 2, space.getCellIdx() + 2));
+                            Space squareToJumpLeft = fetchSpace(new Position(row.getIndex() + 1, space.getCellIdx() + 1));
+                            Space landingSquareLeft = fetchSpace(new Position(row.getIndex() + 2, space.getCellIdx() + 2));
                             Piece jumpedPieceLeft = squareToJumpLeft.getPiece();
                             Piece landingSquarePieceLeft = landingSquareLeft.getPiece();
 
-                            Space squareToJumpRight = getSpaceByCoordinate(new Position(row.getIndex() + 1, space.getCellIdx() - 1));
-                            Space landingSquareRight = getSpaceByCoordinate(new Position(row.getIndex() + 2, space.getCellIdx() - 2));
+                            Space squareToJumpRight = fetchSpace(new Position(row.getIndex() + 1, space.getCellIdx() - 1));
+                            Space landingSquareRight = fetchSpace(new Position(row.getIndex() + 2, space.getCellIdx() - 2));
                             Piece jumpedPieceRight = squareToJumpRight.getPiece();
                             Piece landingSquarePieceRight = landingSquareRight.getPiece();
 
@@ -268,7 +262,6 @@ public class Board implements Iterable<Row>{
                 }
             }
         }
-
         return false;
     }
 

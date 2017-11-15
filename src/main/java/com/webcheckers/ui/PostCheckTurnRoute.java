@@ -10,22 +10,20 @@ import java.util.Objects;
 
 public class PostCheckTurnRoute implements Route {
 
-    //Attributes
-    private final CheckerCentre gameCenter;
+
+    private final CheckerCentre checkercenter;
     private ManageGame game;
 
-    PostCheckTurnRoute(final CheckerCentre gameCenter) {
-        // validation
-        Objects.requireNonNull(gameCenter, "gameCenter must not be null");
-
-        this.gameCenter = gameCenter;
+    PostCheckTurnRoute(final CheckerCentre checkercenter) {
+        Objects.requireNonNull(checkercenter, "checkercenter must not be null");
+        this.checkercenter = checkercenter;
     }
 
 
 
     public Object handle(Request request, Response response)  {
         final String currentUsername = request.session().attribute(PostLoginRoute.USERNAME_PARAM);
-        game = gameCenter.getGame(currentUsername);
+        game = checkercenter.getGame(currentUsername);
 
         if(game != null)
             return game.isMyTurn(currentUsername);

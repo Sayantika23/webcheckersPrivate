@@ -72,17 +72,17 @@ public class ManageGame {
 
             if(moveToUndo.getRowsMoved() == 2) {
                 int lastPieceCapturedPosition = capturedPieces.size() - 1;
-                Position jumpedCoordinate = moveToUndo.getJumpedCoordinate();
-                Space jumpedSpace = board.getSpaceByCoordinate(jumpedCoordinate);
-                Piece pieceToRestore = capturedPieces.get(lastPieceCapturedPosition);
+                Position position = moveToUndo.getPosition();
+                Space space = board.fetchSpace(position);
+                Piece _piece = capturedPieces.get(lastPieceCapturedPosition);
 
                 capturedPieces.remove(lastPieceCapturedPosition);
-                board.undoCapture(jumpedSpace, pieceToRestore, capturedPieces.size());
+                board.undoCapture(space, _piece, capturedPieces.size());
             }
 
-            return new Message("Move has been undone!", "info");
+            return new Message("Move undone", "info");
         } else {
-            return new Message("No moves have been made!", "error");
+            return new Message("There aren't any moves which are made", "error");
         }
     }
 
@@ -90,16 +90,18 @@ public class ManageGame {
         moves.add(move);
     }
 
-    public void removePieceIfCaptured(Move _move) {
-        if(_move.getRowsMoved() == 2) { //Verify that the move was a jump
-            Position jumpedCoordinate = _move.getJumpedCoordinate();
-            Space jumpedSpace = board.getSpaceByCoordinate(jumpedCoordinate);
-            Piece jumpedPiece = jumpedSpace.getPiece();
+    public void removePieceIfCaptured(Move move) {
+        if(move.getRowsMoved() == 2) { 
+            Position position = move.getPosition();
+            Space space = board.fetchSpace(position);
+            Piece piece = space.getPiece();
 
-            if(jumpedPiece != null) { //If a piece was captured,
-                capturedPieces.add(jumpedPiece);
+            if(piece != null) { 
+                capturedPieces.add(piece);
             }
         }
     }
+
+
 
 }

@@ -24,7 +24,7 @@ public class PlayerListRoute implements TemplateViewRoute {
         Map<String, Object> vm = new HashMap<>();
         vm.put("title", "hello");
 
-        if(InGameCheck(request.session().attribute("username"),checkerCentre)) {
+        if(GameCheck(request.session().attribute("username"),checkerCentre)) {
             response.redirect("/game");
             halt();
             return null;
@@ -37,9 +37,9 @@ public class PlayerListRoute implements TemplateViewRoute {
         return new ModelAndView(vm,"playerlist.ftl");
     }
 
-    public boolean InGameCheck(String _username, CheckerCentre checkerCentre ) {
+    public boolean GameCheck(String username, CheckerCentre checkerCentre ) {
         for(ManageGame game : checkerCentre.getGames()) {
-            if(game.getFirstPlayer().getUsername().equals(_username) || game.getSecondPlayer().getUsername().equals(_username)) {
+            if(game.getFirstPlayer().getUsername().equals(username) || game.getSecondPlayer().getUsername().equals(username)) {
                 return true;
             }
         }

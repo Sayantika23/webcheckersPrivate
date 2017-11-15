@@ -34,15 +34,15 @@ public class CheckerCentre {
         CheckerCentre checkerCentre = new CheckerCentre();
         PlayerListRoute list = new PlayerListRoute(checkerCentre);
         for(String username : players.keySet()) {
-            if(!list.InGameCheck(username,checkerCentre ))
+            if(!list.GameCheck(username,checkerCentre ))
                 available.add(username);
         }
         return available;
     }
 
-    public ManageGame getGame(String _username) {
-        for(ManageGame game : games) { //Loop through each game & return true if the username matches the game's Player1 or Player2 attribute
-            if(game.getFirstPlayer().getUsername().equals(_username) || game.getSecondPlayer().getUsername().equals(_username)) {
+   public ManageGame getGame(String username) {
+        for(ManageGame game : games) {
+            if(game.getFirstPlayer().getUsername().equals(username) || game.getSecondPlayer().getUsername().equals(username)) {
                 return game;
             }
         }
@@ -50,8 +50,11 @@ public class CheckerCentre {
         return null;
     }
 
-    public void removePlayer(String _username) {
-        players.remove(_username);
+    public void removePlayer(String username) {
+        players.remove(username);
+    }
+    public void removeGame(ManageGame manageGame) {
+        games.remove(manageGame);
     }
 
 }

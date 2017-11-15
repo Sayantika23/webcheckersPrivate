@@ -29,7 +29,7 @@ public class Move {
     }
 
 
-    public Position getJumpedCoordinate() {
+    public Position getPosition() {
         int rowVal = (start.getRow() + end.getRow())/2;
         int cellVal = (start.getCell() + end.getCell())/2;
 

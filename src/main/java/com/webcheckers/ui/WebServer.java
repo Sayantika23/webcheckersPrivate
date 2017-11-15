@@ -153,6 +153,8 @@ public class WebServer {
     post("checkTurn", new PostCheckTurnRoute(checkerCentre), JsonUtils.json());
 
     get("/logout", new GetLogoutRoute(checkerCentre), templateEngine);
+
+    get("/resignGame", new PostResignGameRoute(checkerCentre), templateEngine);
   }
 
 }

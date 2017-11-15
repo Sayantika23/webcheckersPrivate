@@ -93,7 +93,7 @@
                  title="Commit your current turn to the server.">
                 Submit turn
               </a>
-              <a href="#" id="resignLink" enabled=enabled
+              <a href="/resignGame" id="resignLink" enabled=enabled
                  title="End the game by resigning.">
                 Resign from game
               </a>
