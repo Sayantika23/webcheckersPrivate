@@ -8,6 +8,7 @@ public class PlayerTest {
 
 
     private static final String PLAYERNAME = "test";
+
     @Test
     public void testGetUsername() throws Exception {
         String username = "Smith";

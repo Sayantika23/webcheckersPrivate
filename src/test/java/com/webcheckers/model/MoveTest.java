@@ -1,5 +1,4 @@
 package com.webcheckers.model;
-import com.sun.tools.doclint.Checker;
 import com.webcheckers.appl.CheckerCentre;
 import org.junit.Test;
 
