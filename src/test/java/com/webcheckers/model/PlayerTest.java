@@ -7,6 +7,7 @@ import static org.junit.Assert.*;
 public class PlayerTest {
 
 
+    private static final String PLAYERNAME = "test";
 
     @Test
     public void testGetUsername() throws Exception {
@@ -26,5 +27,16 @@ public class PlayerTest {
 
 
     }
+
+    @Test
+    public void testHashCode()
+    {
+
+        Player player = new Player(PLAYERNAME);
+        assertNotNull(player.hashCode());
+    }
+
+
 }
+
 

@@ -6,6 +6,8 @@ import com.webcheckers.appl.CheckerCentre;
 import com.webcheckers.model.ManageGame;
 import spark.*;
 
+import static spark.Spark.halt;
+
 public class GameController implements TemplateViewRoute {
 
     //Constants
@@ -34,6 +36,11 @@ public class GameController implements TemplateViewRoute {
         final Session session = request.session();
         final String currentUsername = session.attribute(PostLoginRoute.USERNAME_PARAM);
         game = checkerCentre.getCurrentGame(currentUsername);
+        if(game == null || game.getFirstPlayer().getUsername() == null) {
+            response.redirect("/playerlist");
+            halt();
+            return null;
+        }
 
         if(game.getFirstPlayer().getUsername().equals(currentUsername)) {
             vm.put(PLAYER_NAME, game.getFirstPlayer().getUsername());

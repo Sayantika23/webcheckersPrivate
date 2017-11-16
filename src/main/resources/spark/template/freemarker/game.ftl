@@ -27,9 +27,9 @@
     <div class="navigation">
     <#if currentPlayer??>
       <a href="/">my home</a> |
-      <a href="/signout">sign out [${playerName}]</a>
+      <a href="/logout">sign out [${playerName}]</a>
     <#else>
-      <a href="/signin">sign in</a>
+      <a href="/login">sign in</a>
     </#if>
     </div>
     
@@ -93,7 +93,7 @@
                  title="Commit your current turn to the server.">
                 Submit turn
               </a>
-              <a href="#" id="resignLink" enabled=enabled
+              <a href="/resignGame" id="resignLink" enabled=enabled
                  title="End the game by resigning.">
                 Resign from game
               </a>
